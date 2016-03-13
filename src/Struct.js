@@ -26,7 +26,7 @@ var Struct = function() {
     var result = "";
 
     properties.forEach(function(property) {
-      result += "\nlet "+ property.name + ": " + property.type;
+      result += "\n\tlet "+ property.name + ": " + property.type;
     });
 
     return result;
@@ -43,13 +43,13 @@ var Struct = function() {
       initParams += property.name + ": " + property.type;
     });
 
-    var result = "\ninit("+ initParams + ") {";
+    var result = "\n\n\tinit("+ initParams + ") {";
 
     properties.forEach(function(property) {
-      result += "\nself." + property.name + " = " + property.name;
+      result += "\n\t\t\tself." + property.name + " = " + property.name;
     });
 
-    result += "\n}";
+    result += "\n\t}";
 
     return result;
   };

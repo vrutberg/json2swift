@@ -12,45 +12,45 @@ var TestBuilder = function(struct) {
   };
 
   var getDeclaration = function() {
-    return "\nclass " + getName() + " {";
+    return "class " + getName() + " {";
   };
 
   var getPropertyList = function() {
     var result = "";
 
     struct.getProperties().forEach(function(property) {
-      result += "\nprivate var "+ property.name + ": " + property.type;
+      result += "\n\tprivate var "+ property.name + ": " + property.type;
     });
 
     return result;
   };
 
   var getInitializer = function() {
-    var result = "\nprivate init() {";
+    var result = "\n\n\tprivate init() {";
 
     struct.getProperties().forEach(function(property) {
-      result += "\n" + property.name + " = " + JSON.stringify(property.defaultValue);
+      result += "\n\t\t" + property.name + " = " + JSON.stringify(property.defaultValue);
     });
 
-    result += "\n}";
+    result += "\n\t}";
     return result;
   };
 
   var getABuilderMethod = function() {
-    return "\n class func aBuilder() -> " + getName() + " {" +
-     "\n return " + getName() + "()" +
-     "\n}";
+    return "\n\n\tclass func aBuilder() -> " + getName() + " {" +
+     "\n\t\treturn " + getName() + "()" +
+     "\n\t}";
   };
 
   var getSinglePropertySetter = function(property) {
-    return "\nfunc with" + _.upperFirst(property.name) + "(" + property.name + ": " + property.type + ") -> " + getName() + " {" +
-      "\nself." + property.name + " = " + property.name +
-      "\nreturn self" +
-      "\n}";
+    return "\n\n\tfunc with" + _.upperFirst(property.name) + "(" + property.name + ": " + property.type + ") -> " + getName() + " {" +
+      "\n\t\tself." + property.name + " = " + property.name +
+      "\n\t\treturn self" +
+      "\n\t}";
   };
 
   var getPropertySetters = function() {
-    return struct.getProperties().map(getSinglePropertySetter).join("\n");
+    return struct.getProperties().map(getSinglePropertySetter).join("");
   };
 
   var getBuildMethod = function() {
@@ -64,9 +64,9 @@ var TestBuilder = function(struct) {
       parameterList += property.name + ": "+ property.name;
     });
 
-    return "\nfunc build() -> " + struct.getName() + " {" +
-      "\nreturn " + struct.getName() + "(" + parameterList + ")" +
-      "\n}";
+    return "\n\n\tfunc build() -> " + struct.getName() + " {" +
+      "\n\t\treturn " + struct.getName() + "(" + parameterList + ")" +
+      "\n\t}";
   };
 
   return {
