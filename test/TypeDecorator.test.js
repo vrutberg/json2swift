@@ -15,5 +15,32 @@ describe('TypeDecorator', function() {
 
       expect(decorated['propName_type_type']).toBeUndefined();
     });
+
+    it('should decorate known types deeply', function() {
+      var object = {
+        subLevel: {
+          a: 1
+        },
+        b: '2'
+      };
+
+      var decorated = TypeDecorator().decorate(object);
+
+      expect(decorated['b_type']).toBe('String');
+      expect(decorated.subLevel['a_type']).toBe('Float');
+    });
+
+    // it('should handle unknown types', function() {
+    //   var object = {
+    //     subLevel: {
+    //       a: 1
+    //     },
+    //     b: '2'
+    //   };
+    //
+    //   var decorated = TypeDecorator().decorate(object);
+    //
+    //   console.log('decorated', decorated);
+    // });
   });
 });
