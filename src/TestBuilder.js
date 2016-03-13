@@ -41,14 +41,14 @@ var TestBuilder = function(struct, defaultValues) {
   var getABuilderMethod = function() {
     return "\n class func aBuilder() -> " + getName() + " {" +
      "\n return " + getName() + "()" +
-     "\n}"
+     "\n}";
   };
 
   var getSinglePropertySetter = function(property) {
     return "\nfunc with" + _.upperFirst(property.name) + "(" + property.name + ": " + property.type + ") -> " + getName() + " {" +
       "\nself." + property.name + " = " + property.name +
       "\nreturn self" +
-      "\n}"
+      "\n}";
   };
 
   var getPropertySetters = function() {
@@ -68,7 +68,7 @@ var TestBuilder = function(struct, defaultValues) {
 
     return "\nfunc build() -> " + struct.getName() + " {" +
       "\nreturn " + struct.getName() + "(" + parameterList + ")" +
-      "\n}"
+      "\n}";
   };
 
   return {
