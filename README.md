@@ -20,4 +20,4 @@ In the future:
 * npm install
 * ./test.sh
 
-Not tested on any other platform than Mac OS X 10.11. :-)
+Not tested on any other platform than OS X 10.11.x. :-)
