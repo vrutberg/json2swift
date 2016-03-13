@@ -39,8 +39,16 @@ var Struct = function() {
   };
 
   return {
+    getProperties: function() {
+      return properties;
+    },
+
     setProperties: function(newProperties) {
       properties = newProperties;
+    },
+
+    getName: function() {
+      return name;
     },
 
     setName: function(newName) {
@@ -55,3 +63,5 @@ var Struct = function() {
     }
   };
 };
+
+module.exports = Struct;
