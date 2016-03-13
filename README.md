@@ -18,6 +18,16 @@ In the future:
 * Make sure you have NodeJS installed
 * Clone the repository
 * npm install
+* cd example
+* ../cli.js SimpleData.json
+
+### Running tests locally
+
+* Make sure you have NodeJS installed
+* Clone the repository
+* npm install
 * ./test.sh
+
+#### Disclaimer
 
 Not tested on any other platform than OS X 10.11.x. :-)
