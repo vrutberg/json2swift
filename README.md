@@ -6,14 +6,15 @@ A tool to generate Swift code from JSON.
 
 You have a server API which returns JSON, but you don't want to write all of that boring boilerplate Swift code yourself just to read responses from the API. The idea is that you save a response from your server API, and feed it to a tool in this repo. The output is:
 
-* One or more Swift structs that model the data contained by the response, complete with serialization
-* A test builder class for easy creation of structs with specific values in tests
+* One or more Swift structs that model the data contained by the response
+* A test builder class for easy creation of structs, default values from the JSON file
 
-In the future:
+Soon to be added:
 
+* Included serialization
 * Simple tests that verify serialization
 
-### Running locally
+### Running this tool locally
 
 * Make sure you have NodeJS installed
 * Clone the repository
