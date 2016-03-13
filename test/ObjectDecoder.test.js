@@ -12,6 +12,14 @@ describe("ObjectDecoder", function() {
     expect(struct.getProperties().filter(function(prop) { return prop.type === type && prop.name === name; }).length).toBe(1);
   };
 
+  var expectProperties = function(struct, properties) {
+    expect(struct.getProperties().length).toBe(properties.length);
+
+    properties.forEach(function(prop) {
+      expectProperty(struct, prop.name, prop.type);
+    });
+  };
+
   describe("structsFromObject", function() {
     it("should set correct name on Struct", function() {
       var structs = ObjectDecoder().structsFromObject("MyStruct", {});
@@ -34,7 +42,7 @@ describe("ObjectDecoder", function() {
       expect(structs[0].getProperties()).toEqual([ { type: 'String', name: 'propName' } ]);
     });
 
-    it("should correctly handle an object with a complex property", function() {
+    it("should correctly handle an object 1-level nested properties", function() {
       var object = {
         subLevel: {
           a: 1
@@ -47,14 +55,51 @@ describe("ObjectDecoder", function() {
 
       var subLevelStruct = structs.filter(function(struct) { return struct.getName() === "SubLevel"; })[0];
       expect(subLevelStruct).not.toBeUndefined();
-      expect(subLevelStruct.getProperties().length).toBe(1);
-      expectProperty(subLevelStruct, 'a', 'Float');
+      expectProperties(subLevelStruct, [
+        { name: 'a', type: 'Float' }
+      ]);
 
       var myStructStruct = structs.filter(function(struct) { return struct.getName() === "MyStruct"; })[0];
       expect(myStructStruct).not.toBeUndefined();
-      expect(myStructStruct.getProperties().length).toBe(2);
-      expectProperty(myStructStruct, 'subLevel', 'SubLevel');
-      expectProperty(myStructStruct, 'b', 'String');
+      expectProperties(myStructStruct, [
+        { name: 'subLevel', type: 'SubLevel' },
+        { name: 'b', type: 'String' }
+      ]);
+    });
+
+    iit("should correctly handle an object 2-level nested properties", function() {
+      var object = {
+        subLevel: {
+          a: 1,
+          deeperLevel: {
+            c: false
+          }
+        },
+        b: '2'
+      };
+
+      var structs = ObjectDecoder().structsFromObject("MyStruct", object);
+      expect(structs.length).toBe(3);
+
+      var subLevelStruct = structs.filter(function(struct) { return struct.getName() === "SubLevel"; })[0];
+      expect(subLevelStruct).not.toBeUndefined();
+      expectProperties(subLevelStruct, [
+        { name: 'a', type: 'Float' },
+        { name: 'deeperLevel', type: 'DeeperLevel' }
+      ]);
+
+      var deeperLevelStruct = structs.filter(function(struct) { return struct.getName() === "DeeperLevel"; })[0];
+      expect(deeperLevelStruct).not.toBeUndefined();
+      expectProperties(deeperLevelStruct, [
+        { name: 'c', type: 'Bool' }
+      ]);
+
+      var myStructStruct = structs.filter(function(struct) { return struct.getName() === "MyStruct"; })[0];
+      expect(myStructStruct).not.toBeUndefined();
+      expectProperties(myStructStruct, [
+        { name: 'subLevel', type: 'SubLevel' },
+        { name: 'b', type: 'String' }
+      ]);
     });
   });
 });

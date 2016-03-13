@@ -38,6 +38,7 @@ var ObjectDecoder = function() {
             subStruct.setProperties(result.properties);
 
             subStructs.push(subStruct);
+            subStructs = [].concat(subStructs, result.subStructs);
             properties.push({ name: prop, type: structName });
           } else {
             var type = objWithTypeInfo[prop+'_type'];
