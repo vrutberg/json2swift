@@ -42,7 +42,7 @@ var ObjectDecoder = function() {
               throw { message: 'Type with no type info: '+ prop };
             }
 
-            properties.push({ name: prop, type: type });
+            properties.push({ name: prop, type: type, defaultValue: objWithTypeInfo[prop] });
           }
         }
       })(prop);

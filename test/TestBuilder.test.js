@@ -27,7 +27,7 @@ describe('TestBuilder', function() {
         { name: 'color', type: 'UIColor' }
       ]);
 
-      var testBuilder = TestBuilder(struct, []);
+      var testBuilder = TestBuilder(struct);
 
       expect(testBuilder.toString()).toContain('private var color: UIColor');
     });
@@ -45,10 +45,10 @@ describe('TestBuilder', function() {
       var struct = Struct();
       struct.setName('AStruct');
       struct.setProperties([
-        { name: 'color', type: 'String' }
+        { name: 'color', type: 'String', defaultValue: 'red' }
       ]);
 
-      var testBuilder = TestBuilder(struct, { color: '"red"' });
+      var testBuilder = TestBuilder(struct);
 
       expect(testBuilder.toString()).toContain('color = "red"');
     });
@@ -66,10 +66,10 @@ describe('TestBuilder', function() {
       var struct = Struct();
       struct.setName('AStruct');
       struct.setProperties([
-        { name: 'color', type: 'String' }
+        { name: 'color', type: 'String', defaultValue: 'red' }
       ]);
 
-      var testBuilder = TestBuilder(struct, { color: '"red"' });
+      var testBuilder = TestBuilder(struct);
 
       expect(testBuilder.toString()).toContain('func withColor(color: String) -> AStructTestBuilder {');
       expect(testBuilder.toString()).toContain('self.color = color');
@@ -83,7 +83,7 @@ describe('TestBuilder', function() {
         { name: 'color', type: 'String' }
       ]);
 
-      var testBuilder = TestBuilder(struct, { color: '"red"' });
+      var testBuilder = TestBuilder(struct);
 
       expect(testBuilder.toString()).toContain('func build() -> AStruct {');
       expect(testBuilder.toString()).toContain('return AStruct(color: color)');

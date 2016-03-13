@@ -2,13 +2,9 @@
 
 var _ = require('lodash');
 
-var TestBuilder = function(struct, defaultValues) {
+var TestBuilder = function(struct) {
   if (typeof struct === 'undefined') {
     throw { 'message': 'Cannot be instantiated without a Struct as parameter' };
-  }
-
-  if (typeof defaultValues === 'undefined') {
-    defaultValues = [];
   }
 
   var getName = function() {
@@ -33,7 +29,7 @@ var TestBuilder = function(struct, defaultValues) {
     var result = "\nprivate init() {";
 
     struct.getProperties().forEach(function(property) {
-      result += "\n" + property.name + " = " + defaultValues[property.name];
+      result += "\n" + property.name + " = " + JSON.stringify(property.defaultValue);
     });
 
     result += "\n}";

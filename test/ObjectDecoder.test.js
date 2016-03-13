@@ -39,7 +39,7 @@ describe("ObjectDecoder", function() {
       var structs = ObjectDecoder().structsFromObject("MyStruct", { propName: "prop value" });
 
       expect(structs.length).toBe(1);
-      expect(structs[0].getProperties()).toEqual([ { type: 'String', name: 'propName' } ]);
+      expect(structs[0].getProperties()).toEqual([ { type: 'String', name: 'propName', defaultValue: 'prop value' } ]);
     });
 
     it("should correctly handle an object 1-level nested properties", function() {
