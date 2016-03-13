@@ -4,18 +4,11 @@ var TypeDecorator = require('./TypeDecorator')
 
 var ObjectDecoder = function() {
   var structsFromObject = function(name, obj) {
-    var objWithTypeInfo = TypeDecorator().decorate(obj);
-    var result = propertyBuilder(objWithTypeInfo);
+    var topObject = {};
+    topObject[name] = obj;
 
-    var properties = result.properties;
-    var structs = result.subStructs;
-
-    var struct = Struct();
-    struct.setName(name);
-    struct.setProperties(properties);
-    structs.push(struct);
-
-    return structs;
+    var objWithTypeInfo = TypeDecorator().decorate(topObject);
+    return propertyBuilder(objWithTypeInfo).subStructs;
   };
 
   var propertyBuilder = function(objWithTypeInfo) {
