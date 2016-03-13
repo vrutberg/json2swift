@@ -1,3 +1,5 @@
+'use strict';
+
 var _ = require('lodash');
 var Struct = require('./Struct');
 var TypeDecorator = require('./TypeDecorator')

@@ -1,3 +1,5 @@
+'use strict';
+
 var Struct = function() {
   var properties = [];
   var name = "UnnamedStruct";
@@ -41,7 +43,7 @@ var Struct = function() {
       initParams += property.name + ": " + property.type;
     });
 
-    result = "\ninit("+ initParams + ") {";
+    var result = "\ninit("+ initParams + ") {";
 
     properties.forEach(function(property) {
       result += "\nself." + property.name + " = " + property.name;
