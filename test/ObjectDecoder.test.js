@@ -67,7 +67,7 @@ describe("ObjectDecoder", function() {
       ]);
     });
 
-    iit("should correctly handle an object 2-level nested properties", function() {
+    it("should correctly handle an object 2-level nested properties", function() {
       var object = {
         subLevel: {
           a: 1,
