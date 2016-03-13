@@ -16,11 +16,18 @@ describe('TypeDecorator', function() {
       expect(decorated['propName_type']).toBe('Bool');
     });
 
-    it('should decorate array types', function() {
+    it('should correctly decorate arrays with values', function() {
       var obj = { array: [1] };
       var decorated = TypeDecorator().decorate(obj);
 
       expect(decorated['array_type']).toBe('[Float]');
+    });
+
+    it('should correctly decorate arrays without', function() {
+      var obj = { array: [] };
+      var decorated = TypeDecorator().decorate(obj);
+
+      expect(decorated['array_type']).toBe('[AnyObject]');
     });
 
     it('should not decorate type info', function() {

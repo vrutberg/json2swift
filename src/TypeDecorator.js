@@ -4,8 +4,7 @@ var TypeDecorator = function() {
   var typeMappings = {
     "string": "String",
     "boolean": "Bool",
-    "number": "Float",
-    "Object": "AnyObject"
+    "number": "Float"
   };
 
   var mapType = function(propertyValue) {
@@ -18,7 +17,7 @@ var TypeDecorator = function() {
 
         return '[' + typeMappings[type] + ']'
       } else {
-        return '[]';
+        return '[AnyObject]';
       }
     } else {
       type = typeof propertyValue;
