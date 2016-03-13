@@ -1,6 +1,6 @@
 # json2swift
 
-Tools to generate Swift code from JSON.
+A tool to generate Swift code from JSON.
 
 ### Use case
 
