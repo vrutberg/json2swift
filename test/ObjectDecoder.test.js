@@ -101,5 +101,19 @@ describe("ObjectDecoder", function() {
         { name: 'b', type: 'String' }
       ]);
     });
+
+    it("should handle basic array values", function() {
+      var object = {
+        arrayValues: [1]
+      };
+
+      var structs = ObjectDecoder().structsFromObject("MyStruct", object);
+
+      var myStructStruct = structs.filter(function(struct) { return struct.getName() === "MyStruct"; })[0];
+      expect(myStructStruct).not.toBeUndefined();
+      expectProperties(myStructStruct, [
+        { name: 'arrayValues', type: '[Float]' }
+      ]);
+    });
   });
 });

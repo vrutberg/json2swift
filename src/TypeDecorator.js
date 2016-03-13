@@ -4,7 +4,26 @@ var TypeDecorator = function() {
   var typeMappings = {
     "string": "String",
     "boolean": "Bool",
-    "number": "Float"
+    "number": "Float",
+    "Object": "AnyObject"
+  };
+
+  var mapType = function(propertyValue) {
+    var type = undefined;
+    var mappedType = undefined;
+
+    if (_.isArray(propertyValue)) {
+      if (propertyValue.length > 0) {
+        type = typeof propertyValue[0];
+
+        return '[' + typeMappings[type] + ']'
+      } else {
+        return '[]';
+      }
+    } else {
+      type = typeof propertyValue;
+      return typeMappings[type];
+    }
   };
 
   var decorate = function(obj) {
@@ -13,14 +32,17 @@ var TypeDecorator = function() {
     for (var prop in returnObj) {
       (function(prop) {
         if (returnObj.hasOwnProperty(prop) && prop.indexOf('_type') === -1) {
-          if (_.isObject(returnObj[prop])) {
+          var propValue = returnObj[prop];
+
+          if (_.isPlainObject(propValue)) {
             returnObj[prop] = decorate(returnObj[prop]);
           } else {
-            var type = typeof returnObj[prop];
-            var mappedType = typeMappings[type];
+            var mappedType = mapType(propValue);
 
             if (typeof mappedType !== 'undefined') {
               returnObj[prop+'_type'] = mappedType;
+            } else {
+              throw { message: "No type mapping found for value: "+ propValue };
             }
           }
         }

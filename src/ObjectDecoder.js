@@ -22,7 +22,7 @@ var ObjectDecoder = function() {
             return;
           }
 
-          if (_.isObject(objWithTypeInfo[prop])) {
+          if (_.isPlainObject(objWithTypeInfo[prop])) {
             var result = propertyBuilder(objWithTypeInfo[prop]);
             var structName = _.upperFirst(prop);
 
