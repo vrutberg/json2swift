@@ -6,6 +6,7 @@
   "license": "ISC",
   "dependencies": {
     "jasmine-node": "~1.14.5",
-    "lodash": "~4.6.1"
+    "lodash": "~4.6.1",
+    "argparse": "~1.0.6"
   }
 }
