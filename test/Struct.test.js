@@ -5,6 +5,8 @@ describe("Struct", function() {
     var aStruct = Struct();
 
     expect(typeof aStruct.toString).toBe('function');
+    expect(typeof aStruct.getSuperTypes).toBe('function');
+    expect(typeof aStruct.setSuperTypes).toBe('function');
     expect(typeof aStruct.getProperties).toBe('function');
     expect(typeof aStruct.setProperties).toBe('function');
     expect(typeof aStruct.getName).toBe('function');
@@ -29,6 +31,15 @@ describe("Struct", function() {
     });
   });
 
+  describe("getSuperTypes", function() {
+    it("should return the correct super types", function() {
+      var aStruct = Struct();
+      aStruct.setSuperTypes(['Fruit']);
+
+      expect(aStruct.getSuperTypes()).toEqual(['Fruit']);
+    });
+  });
+
   describe("toString", function() {
     it("should print the name correctly", function() {
       var aStruct = Struct();
@@ -36,6 +47,28 @@ describe("Struct", function() {
       var output = aStruct.toString();
 
       expect(output).toContain('struct Banana {');
+    });
+
+    it("should print one super type correctly", function() {
+      var aStruct = Struct();
+
+      aStruct.setName('Banana');
+      aStruct.setSuperTypes(['Fruit']);
+
+      var output = aStruct.toString();
+
+      expect(output).toContain('struct Banana: Fruit {');
+    });
+
+    it("should print two super types correctly", function() {
+      var aStruct = Struct();
+
+      aStruct.setName('Banana');
+      aStruct.setSuperTypes(['Fruit', 'Response']);
+
+      var output = aStruct.toString();
+
+      expect(output).toContain('struct Banana: Fruit, Response {');
     });
 
     it("should print a property correctly", function() {

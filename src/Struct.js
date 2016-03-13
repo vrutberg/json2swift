@@ -1,9 +1,23 @@
 var Struct = function() {
   var properties = [];
   var name = "UnnamedStruct";
+  var superTypes = [];
 
   var getDeclaration = function() {
-    return "struct "+ name + " {";
+    var nameDeclaration = "struct "+ name;
+    var superTypeString = "";
+
+    superTypes.forEach(function(superType) {
+      if (superTypeString.length === 0) {
+        superTypeString += ": ";
+      } else {
+        superTypeString += ", ";
+      }
+
+      superTypeString += superType;
+    });
+
+    return nameDeclaration + superTypeString + " {";
   };
 
   var getPropertyDeclarations = function() {
@@ -39,6 +53,14 @@ var Struct = function() {
   };
 
   return {
+    getSuperTypes: function() {
+      return superTypes;
+    },
+
+    setSuperTypes: function(newSuperTypes) {
+      superTypes = newSuperTypes;
+    },
+
     getProperties: function() {
       return properties;
     },
